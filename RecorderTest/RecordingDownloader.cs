@@ -211,6 +211,8 @@ namespace RecorderTest
                         DateTime timeUntilRetryDownload = DateTime.Now.AddMinutes(MaxTimeToRetryDownloadMins);
                         Console.WriteLine($"First download attempt was unsuccessful. Retry download later until: {timeUntilRetryDownload}");
                         downloadableItem.TimeUntilRetryDownload = timeUntilRetryDownload;
+                        requestQueue.TryAdd(downloadableItem);
+                        // TODO: Check if add was successful and log...
                     }
                     else if (DateTime.Now < downloadableItem.TimeUntilRetryDownload.Value)
                     {
